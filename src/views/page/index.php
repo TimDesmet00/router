@@ -1,4 +1,4 @@
-<?php require_once 'views/component/header.php';?>
+<?php require_once './component/header.php';?>
 
 <section>
     <h1>Articles</h1>
@@ -9,4 +9,4 @@
     </ul>
 </section>
 
-<?php require_once 'views/component/footer.php';?>
+<?php require_once './component/footer.php';?>
