@@ -3,12 +3,11 @@ declare(strict_types=1);
 
 require_once '../vendor/autoload.php';
 
-// require_once 'views/component/header.php';
-
 use App\controllers\homeController;
+use App\controllers\articlesController;
 
 $homeController = new homeController();
-$homeController->index();
+$articlesController = new articlesController();
 
 $page = $_GET['page'] ?? null;
 
@@ -20,9 +19,9 @@ switch ($page) {
         // This is shorthand for: (Ceci est un raccourci pour:)
         // $articleController = new ArticleController; (nouveau ArticleController;)
         // $articleController->index(); 
-        (new ArticleController())->index();
+        (new ArticlesController())->index();
         break;
-    case 'page-articles':
+    case 'page-show':
         // TODO: detail page 
     case 'home':
     default:

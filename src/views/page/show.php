@@ -1,6 +1,6 @@
 <?php
 require_once '../vendor/autoload.php';
-require_once 'views/component/header.php';
+require 'views/component/header.php';
 ?>
 
 <section>
@@ -14,5 +14,5 @@ require_once 'views/component/header.php';
 </section>
 
 <?php
-require_once 'views/component/footer.php'
+require 'views/component/footer.php'
 ?>
