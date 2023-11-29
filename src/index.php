@@ -23,6 +23,14 @@ switch ($page) {
         break;
     case 'page-show':
         // TODO: detail page 
+        $id = $_GET['id'] ?? null;
+        if ($id !== null) {
+            (new ArticlesController())->show($id);
+        } else {
+            // Handle the case where no ID was provided
+            // TODO: Redirect to an error page or something similar
+        }
+        break;
     case 'home':
     default:
         (new HomeController())->index();

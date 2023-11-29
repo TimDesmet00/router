@@ -21,9 +21,9 @@ class Article
         $this->id_author = $id_author;
     }
 
-    public function formatPublishDate($format = 'D-M-Y')
+    public function formatPublishDate($format = 'd-m-Y')
     {
-        $date = new DateTime($this->publishDate);
+        $date = new \DateTime($this->publishDate);
         return $date->format($format);
     }
 }
