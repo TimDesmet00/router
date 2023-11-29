@@ -38,6 +38,7 @@ class articlesController
     public function show()
     {
         // echo 'articlesController show';
-        require_once 'views/page/show.php';
+        $articles = $this->getArticles();
+        require_once './views/page/show.php';
     }
 }
