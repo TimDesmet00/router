@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\utils\Database;
+use App\models\Article;
 
 class articlesController
 {
@@ -29,7 +30,7 @@ class articlesController
         foreach ($rawArticles as $rawArticle) 
         {
             // We are converting an article from a "dumb" array to a much more flexible class (Nous convertissons un article d'un tableau "dumb" à une classe beaucoup plus flexible)
-            $articles[] = new  \App\models\Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['Publication-date'], $rawArticle['id_author']);
+            $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['Publication-date'], $rawArticle['id_author']);
         }
 
         return $articles;
@@ -39,6 +40,6 @@ class articlesController
     {
         // echo 'articlesController show';
         $articles = $this->getArticles();
-        require_once './views/page/show.php';
+        require_once 'views/page/show.php';
     }
 }
