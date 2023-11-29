@@ -1,4 +1,6 @@
-<?php require './component/header.php';?>
+<?php require 'views/component/header.php';?>
+
+<?php use App\controller\getArticles; ?>
 
 <section>
     <h1>Articles</h1>
@@ -9,4 +11,4 @@
     </ul>
 </section>
 
-<?php require './component/footer.php';?>
+<?php require 'views/component/footer.php';?>
