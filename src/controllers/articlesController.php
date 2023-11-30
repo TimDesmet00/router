@@ -97,5 +97,36 @@ class articlesController
 
         require_once 'views/page/showAuthor.php';
     }
+
+    public function validateAndSanitize($_post)
+    {
+        if (isset($_POST['title']) and !empty($_POST['title']) and strlen($_POST['title']) >= 3 and strlen($_POST['title']) <= 46) 
+        {
+            $title = htmlspecialchars($_POST['title']);
+        } else {
+            $title = null;
+        }
+
+        if (isset($_POST['description']) and !empty($_POST['description']) and strlen($_POST['description']) >= 3 and strlen($_POST['description']) <= 1000) 
+        {
+            $description = htmlspecialchars($_POST['description']);
+        } else {
+            $description = null;
+        }
+
+        if (isset($_POST['id_author']) and !empty($_POST['id_author']) and is_numeric($_POST['id_author']) and $_POST['id_author'] >= 0 and $_POST['id_author'] <= 255) 
+        {
+            $id_author = htmlspecialchars($_POST['id_author']);
+        } else {
+            $id_author = null;
+        }
+
+        if ($title != null and $description != null and $id_author != null) 
+        {
+            $this->addArticle($title, $description, $id_author);
+        } else {
+            echo 'Veuillez remplir tous les champs correctement';
+        }
+    }
 }
 
