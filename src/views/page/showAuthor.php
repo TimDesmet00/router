@@ -3,7 +3,8 @@
 <?php use App\controller\getArticles; ?>
 
 <section>
-    <h1><?= $article->author_first_name ?> <?= $article->author_last_name ?></h1>
+    <?Php $author = $articlesByAuthors[0]; ?>
+    <h1><?= $author->author_first_name ?> <?= $author->author_last_name ?></h1>
     <ul>
     <?php foreach ($articlesByAuthors as $article) : ?>
         <li><p><a href="#"><?= $article->title ?></a></p></li>
