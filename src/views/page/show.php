@@ -8,8 +8,13 @@
     <p><?= $articleToShow->description ?></p>
 
     <?php // TODO: links to next and previous ?>
-    <a href="#">Previous article</a>
-    <a href="#">Next article</a>
+    <?php if ($previousArticle != null): ?>
+        <a href="./index.php?page=page-show&id=<?= $previousArticle->id ?>">Article précédent</a>
+    <?php endif; ?>
+
+    <?php if ($nextArticle != null): ?>
+        <a href="./index.php?page=page-show&id=<?= $nextArticle->id ?>">Article suivant</a>
+    <?php endif; ?>
 </section>
 
 <?php

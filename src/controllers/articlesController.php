@@ -39,13 +39,23 @@ class articlesController
     public function show($id)
     {
         $articles = $this->getArticles();
-        // echo 'articlesController show';
         $articleToShow = null;
-        foreach ($articles as $article) 
+        $previousArticle = null;
+        $nextArticle = null;
+
+        foreach ($articles as $index => $article) 
         {
             if ($article->id == $id) 
             {
                 $articleToShow = $article;
+
+                if ($index != 0) {
+                    $previousArticle = $articles[$index - 1];
+                }
+    
+                if ($index != count($articles) - 1) {
+                    $nextArticle = $articles[$index + 1];
+                }
                 break;
             }
         }
