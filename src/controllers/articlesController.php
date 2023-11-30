@@ -31,7 +31,7 @@ class articlesController
         foreach ($rawArticles as $rawArticle) 
         {
             // We are converting an article from a "dumb" array to a much more flexible class (Nous convertissons un article d'un tableau "dumb" à une classe beaucoup plus flexible)
-            $article = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['Publication-date'], $rawArticle['id_author']);
+            $article = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['Publication-date'], $rawArticle['id_author'], $rawArticle['img']);
             $article->author_first_name = $rawArticle['first_name'];
             $article->author_last_name = $rawArticle['last_name'];
             $articles[] = $article;

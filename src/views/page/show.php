@@ -16,6 +16,7 @@
     <?php if ($nextArticle != null): ?>
         <a href="./index.php?page=page-show&id=<?= $nextArticle->id ?>">Article suivant</a>
     <?php endif; ?>
+    <img src="/BeCode/router/vendor/img/<?= $articleToShow->img ?>" alt="">
 </section>
 
 <?php
