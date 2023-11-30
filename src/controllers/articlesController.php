@@ -21,7 +21,8 @@ class articlesController
         $db = new Database();
         $db->connectDB();
 
-        $sql = 'SELECT * FROM articles';
+        // $sql = 'SELECT * FROM articles';
+        $sql = 'SELECT articles.*, author.first_name, author.last_name FROM articles INNER JOIN author ON articles.id_author = author.id';
         // $rawArticles = $pdo->query($sql)->fetchAll();
         $rawArticles = $db->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -30,7 +31,10 @@ class articlesController
         foreach ($rawArticles as $rawArticle) 
         {
             // We are converting an article from a "dumb" array to a much more flexible class (Nous convertissons un article d'un tableau "dumb" à une classe beaucoup plus flexible)
-            $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['Publication-date'], $rawArticle['id_author']);
+            $article = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['Publication-date'], $rawArticle['id_author']);
+            $article->author_first_name = $rawArticle['first_name'];
+            $article->author_last_name = $rawArticle['last_name'];
+            $articles[] = $article;
         }
 
         return $articles;

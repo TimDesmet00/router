@@ -4,6 +4,7 @@
 
 <section>
     <h1><?= $articleToShow->title ?></h1>
+    <p>Par: <?= $articleToShow->author_first_name ?> <?= $articleToShow->author_last_name ?></p>
     <p><?= $articleToShow->formatPublishDate() ?></p>
     <p><?= $articleToShow->description ?></p>
 
