@@ -65,4 +65,20 @@ class articlesController
         }
         require_once 'views/page/show.php';
     }
+
+    public function author()
+    {
+        $articles = $this->getArticles();
+
+        $uniqueAuthors = [];
+
+    foreach ($articles as $article) {
+        if (!array_key_exists($article->id_author, $uniqueAuthors)) {
+            $uniqueAuthors[$article->id_author] = $article;
+        }
+    }
+    
+        require_once 'views/page/author.php';   
+    }
 }
+

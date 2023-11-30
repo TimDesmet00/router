@@ -15,7 +15,6 @@ $page = $_GET['page'] ?? null;
 // It will *control* the rest of the work to load the page (Il *contrôlera* le reste du travail pour charger la page)
 switch ($page) {
     case 'page':
-    case 'page-index':
         // This is shorthand for: (Ceci est un raccourci pour:)
         // $articleController = new ArticleController; (nouveau ArticleController;)
         // $articleController->index(); 
@@ -27,6 +26,9 @@ switch ($page) {
         if ($id !== null) {
             (new ArticlesController())->show($id);
         } 
+        break;
+    case 'page-author':
+        (new ArticlesController())->author();
         break;
     case 'home':
     default:
