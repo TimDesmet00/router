@@ -30,6 +30,12 @@ switch ($page) {
     case 'page-author':
         (new ArticlesController())->author();
         break;
+    case 'page-showAuthor':
+        $id = $_GET['id'] ?? null;
+        if ($id !== null) {
+            (new ArticlesController())->showAuthor($id);
+        } 
+        break;
     case 'home':
     default:
         (new HomeController())->index();

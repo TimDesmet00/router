@@ -77,8 +77,25 @@ class articlesController
             $uniqueAuthors[$article->id_author] = $article;
         }
     }
-    
+
         require_once 'views/page/author.php';   
+    }
+
+    public function showAuthor($id)
+    {
+        $articles = $this->getArticles();
+        
+        $articlesByAuthors = [];
+
+    foreach ($articles as $article) 
+    {
+        if ($article->id_author == $id) 
+        {
+            $articlesByAuthors[] = $article;
+        }
+    }
+
+        require_once 'views/page/showAuthor.php';
     }
 }
 
