@@ -36,10 +36,19 @@ class articlesController
         return $articles;
     }
 
-    public function show()
+    public function show($id)
     {
-        // echo 'articlesController show';
         $articles = $this->getArticles();
+        // echo 'articlesController show';
+        $articleToShow = null;
+        foreach ($articles as $article) 
+        {
+            if ($article->id == $id) 
+            {
+                $articleToShow = $article;
+                break;
+            }
+        }
         require_once 'views/page/show.php';
     }
 }
