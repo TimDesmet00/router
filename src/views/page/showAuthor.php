@@ -2,6 +2,8 @@
 
 <?php use App\controller\getArticles; ?>
 
+<p><a href="./index.php?page=home">Home</a></p>
+
 <section>
     <?Php $author = $articlesByAuthors[0]; ?>
     <h1><?= $author->author_first_name ?> <?= $author->author_last_name ?></h1>

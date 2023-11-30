@@ -2,6 +2,8 @@
 
 <?php use App\controller\getArticles; ?> 
 
+<p><a href="./index.php?page=home">Home</a></p>
+
 <section>
     <h1><?= $articleToShow->title ?></h1>
     <p>Par: <a href="./index.php?page=page-showAuthor&id=<?= $article->id_author ?>"><?= $articleToShow->author_first_name ?> <?= $articleToShow->author_last_name ?></a></p>

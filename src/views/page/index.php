@@ -3,6 +3,7 @@
 <?php use App\controller\getArticles; ?>
 
 <section>
+    <p><a href="./index.php?page=home">Home</a></p>
     <h1>Articles</h1>
     <ul>
         <?php foreach ($articles as $article) : ?>

@@ -2,6 +2,8 @@
 
 <?php use App\controller\getArticles; ?>
 
+<p><a href="./index.php?page=home">Home</a></p>
+
 <section>
     <h1>Auteur</h1>
     <ul>
