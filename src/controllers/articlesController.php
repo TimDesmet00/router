@@ -12,6 +12,15 @@ class articlesController
     {
         // echo 'articlesController index';
         $articles = $this->getArticles();
+        $uniqueAuthors = [];
+
+        foreach ($articles as $article) {
+            if (!array_key_exists($article->id_author, $uniqueAuthors)) {
+                $uniqueAuthors[$article->id_author] = $article;
+            }
+        }
+
+        $data = compact('uniqueAuthors');
         require_once 'views/page/index.php';
     }
 
@@ -77,7 +86,7 @@ class articlesController
             $uniqueAuthors[$article->id_author] = $article;
         }
     }
-
+        $data = compact('uniqueAuthors');
         require_once 'views/page/author.php';   
     }
 
@@ -128,5 +137,18 @@ class articlesController
             echo 'Veuillez remplir tous les champs correctement';
         }
     }
+
+    public function addArticle($title, $description, $id_author)
+    {
+        $db = new Database();
+        $db->connectDB();
+
+        $sql = 'INSERT INTO articles (title, description, id_author) VALUES (:title, :description, :id_author)';
+        $db->query($sql, ['title' => $title, 'description' => $description, 'id_author' => $id_author]);
+
+        header('Location: ./index.php?page=page-index');
+    }
+
+
 }
 

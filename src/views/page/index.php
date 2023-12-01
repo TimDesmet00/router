@@ -23,8 +23,12 @@
             <textarea name="description" id="description" cols="150" rows="20" minlength="3" maxlength="1000" require></textarea>
         </div>
         <div>
-            <label for="id_author">Identifiant de l'auteur: </label>
-            <input type="number" name="id_author" id="id_author" min="0" max="255" require>
+            <label for="author">Auteur: </label>
+            <select name="author" id="author">
+                <?php foreach ($uniqueAuthors as $article) : ?>
+                    <option value="<?= $article->id_author ?>"><?= $article->author_first_name ?> <?= $article->author_last_name ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div>
             <input type="submit" value="Ajouter">
