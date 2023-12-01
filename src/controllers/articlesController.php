@@ -43,7 +43,7 @@ class articlesController
         foreach ($rawArticles as $rawArticle) 
         {
             // We are converting an article from a "dumb" array to a much more flexible class (Nous convertissons un article d'un tableau "dumb" à une classe beaucoup plus flexible)
-            $article = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['Publication-date'], $rawArticle['id_author'], $rawArticle['img']);
+            $article = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['publication_date'], $rawArticle['id_author'], $rawArticle['img']);
             $article->author_first_name = $rawArticle['first_name'];
             $article->author_last_name = $rawArticle['last_name'];
             $articles[] = $article;
@@ -112,21 +112,30 @@ class articlesController
 
     public function handleFormSubmission()
     {
-        var_dump($_POST);
+        // var_dump($_POST);
+        var_dump('handleFormSubmission called');
         if(array_key_exists('submit', $_POST)) {
+            var_dump('submit key exists');
             $result = $this->validateAndSanitize($_POST);
             var_dump($result);
-            list($title, $description, $id_author) = $result;
-            if($title && $description && $id_author) {
-                $this->addArticle($title, $description, $id_author);
-            } else {
-                echo 'Veuillez remplir tous les champs correctement';
-            }
+            if($result) 
+            {
+                list($title, $description, $id_author) = $result;
+                var_dump($title, $description, $id_author);
+                if($title !== '' && $description !== '' && $id_author !== '') 
+                {
+                    $this->addArticle($title, $description, $id_author);
+                    var_dump('addArticle called');
+                } else {
+                    echo 'Veuillez remplir tous les champs correctement';
+                }
+            }    
         }
     }
 
     public function validateAndSanitize($_post)
     {
+        var_dump('validateAndSanitize called');
         if (isset($_POST['title']) and !empty($_POST['title']) and strlen($_POST['title']) >= 3 and strlen($_POST['title']) <= 46) 
         {
             $title = htmlspecialchars($_POST['title']);
@@ -147,25 +156,38 @@ class articlesController
         } else {
             $id_author = null;
         }
-
+        // var_dump($title, $description, $id_author);
         if ($title != null and $description != null and $id_author != null) 
         {
-            $this->addArticle($title, $description, $id_author);
+            // $this->addArticle($title, $description, $id_author);
+            return [$title, $description, $id_author];
+            var_dump($title, $description, $id_author);
         } else {
             echo 'Veuillez remplir tous les champs correctement';
+            return false;
         }
-        // var_dump($title, $description, $id_author);
+        
     }
 
     public function addArticle($title, $description, $id_author)
     {
+        var_dump('addArticle called');
         $db = new Database();
         $db->connectDB();
 
-        $sql = 'INSERT INTO articles (title, `description`, id_author, `Publication-date`) VALUES (`:title`, `:description`, `:id_author`, now())';
-        $db->query($sql, ['title' => $title, 'description' => $description, 'id_author' => $id_author, `Publication-date` => now()]);
+        $description = addslashes($description);
 
-        header('Location: ./index.php?page=page-index');
+        $sql = 'INSERT INTO articles (title, description, publication_date, id_author) VALUES (:title, :description, now(), :id_author)';
+        $stmt = $db->prepare($sql);
+
+        $result = $stmt->execute([':title' => $title, ':description' => $description, ':id_author' => $id_author]);
+        
+        if ($result) {
+            return 'Article ajouté avec succès';
+        } else {
+            return 'Erreur lors de l\'ajout de l\'article';
+        }
+        // header('Location: ./index.php?page=page-index');
     }
 }
 
