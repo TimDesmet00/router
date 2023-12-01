@@ -12,6 +12,7 @@ class articlesController
     {
         // echo 'articlesController index';
         $articles = $this->getArticles();
+
         $uniqueAuthors = [];
 
         foreach ($articles as $article) {
@@ -19,6 +20,8 @@ class articlesController
                 $uniqueAuthors[$article->id_author] = $article;
             }
         }
+
+        $this->handleFormSubmission();
 
         $data = compact('uniqueAuthors');
         require_once 'views/page/index.php';
@@ -107,6 +110,21 @@ class articlesController
         require_once 'views/page/showAuthor.php';
     }
 
+    public function handleFormSubmission()
+    {
+        var_dump($_POST);
+        if(array_key_exists('submit', $_POST)) {
+            $result = $this->validateAndSanitize($_POST);
+            var_dump($result);
+            list($title, $description, $id_author) = $result;
+            if($title && $description && $id_author) {
+                $this->addArticle($title, $description, $id_author);
+            } else {
+                echo 'Veuillez remplir tous les champs correctement';
+            }
+        }
+    }
+
     public function validateAndSanitize($_post)
     {
         if (isset($_POST['title']) and !empty($_POST['title']) and strlen($_POST['title']) >= 3 and strlen($_POST['title']) <= 46) 
@@ -116,7 +134,7 @@ class articlesController
             $title = null;
         }
 
-        if (isset($_POST['description']) and !empty($_POST['description']) and strlen($_POST['description']) >= 3 and strlen($_POST['description']) <= 1000) 
+        if (isset($_POST['description']) and !empty($_POST['description']) and strlen($_POST['description']) >= 3 and strlen($_POST['description']) <= 5000) 
         {
             $description = htmlspecialchars($_POST['description']);
         } else {
@@ -125,7 +143,7 @@ class articlesController
 
         if (isset($_POST['id_author']) and !empty($_POST['id_author']) and is_numeric($_POST['id_author']) and $_POST['id_author'] >= 0 and $_POST['id_author'] <= 255) 
         {
-            $id_author = htmlspecialchars($_POST['id_author']);
+            $id_author = intval(htmlspecialchars($_POST['id_author']));
         } else {
             $id_author = null;
         }
@@ -136,6 +154,7 @@ class articlesController
         } else {
             echo 'Veuillez remplir tous les champs correctement';
         }
+        // var_dump($title, $description, $id_author);
     }
 
     public function addArticle($title, $description, $id_author)
@@ -143,12 +162,10 @@ class articlesController
         $db = new Database();
         $db->connectDB();
 
-        $sql = 'INSERT INTO articles (title, description, id_author) VALUES (:title, :description, :id_author)';
-        $db->query($sql, ['title' => $title, 'description' => $description, 'id_author' => $id_author]);
+        $sql = 'INSERT INTO articles (title, `description`, id_author, `Publication-date`) VALUES (`:title`, `:description`, `:id_author`, now())';
+        $db->query($sql, ['title' => $title, 'description' => $description, 'id_author' => $id_author, `Publication-date` => now()]);
 
         header('Location: ./index.php?page=page-index');
     }
-
-
 }
 

@@ -20,11 +20,12 @@
         </div>
         <div>
             <label for="description">Article: </label>
-            <textarea name="description" id="description" cols="150" rows="20" minlength="3" maxlength="1000" require></textarea>
+            <textarea name="description" id="description" cols="150" rows="20" minlength="3" maxlength="5000" require></textarea>
         </div>
         <div>
             <label for="author">Auteur: </label>
             <select name="author" id="author">
+                <option value="null">choisir Auteur</option>
                 <?php foreach ($uniqueAuthors as $article) : ?>
                     <option value="<?= $article->id_author ?>"><?= $article->author_first_name ?> <?= $article->author_last_name ?></option>
                 <?php endforeach; ?>
